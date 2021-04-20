@@ -9,7 +9,7 @@ module.exports = { //funções auxiliares
        const timeDiffInMs = dueDateInMs - Date.now()  //Diferença do tempo em Milisegundos
        //transforma milli em dias
        const dayInMs = 1000 * 60 * 60 * 24
-       const dayDiff = Math.floor(timeDiffInMs / dayInMs)
+       const dayDiff = Math.ceil(timeDiffInMs / dayInMs)
    
        //retorna x dias
        return dayDiff

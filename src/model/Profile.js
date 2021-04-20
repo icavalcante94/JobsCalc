@@ -1,15 +1,5 @@
 // Pasta Model é responsável por fornecer dados
-const Database = require('../db/config')
-
-// let data = {
-//     name: "Iago",
-//     avatar: "https://avatars.githubusercontent.com/u/54562840?v=4",
-//     "monthly-budget": 3000, // quanto quer ganhar por mês
-//     "days-per-week": 5, // horas por dia
-//     "hours-per-day": 5, // horas por dia
-//     "vacation-per-year": 4, // quantas semanas de férias por ano
-//     "value-hour": 75
-// }   
+const Database = require('../db/config') 
 
 module.exports = {
     async get(){
@@ -26,11 +16,24 @@ module.exports = {
             avatar: data.avatar,
             "monthly-budget": data.monthly_budget,
             "days-per-week": data.days_per_week,
-            "hours-per-day": data.vacation_per_year,
-            "value-hour": data.value_hour
+            "hours-per-day": data.hours_per_day,
+            "value-hour": data.value_hour,
+            "vacation-per-year": data.vacation_per_year
         }
     },
-    update(newData){
-        data = newData
+    async update(newData){
+        const db = await Database()
+
+        db.run(`UPDATE profile SET
+            name = "${newData.name}",
+            avatar = "${newData.avatar}",
+            monthly_budget = ${newData["monthly-budget"]},
+            days_per_week = ${newData["days-per-week"]}, 
+            hours_per_day = ${newData["hours-per-day"]},
+            vacation_per_year = ${newData["vacation-per-year"]},
+            value_hour = ${newData["value-hour"]}
+        `)
+
+        await db.close()
     }
 }
